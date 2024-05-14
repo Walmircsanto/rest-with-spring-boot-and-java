@@ -1,13 +1,16 @@
 package br.com.walmir.restwithspringbootandjava1.model;
 
-
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Pessoas")
-public class PessoasEntity implements Serializable {
+@Table(name = "Pessoa")
+public class Person implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +27,11 @@ public class PessoasEntity implements Serializable {
     private String gender;
 
 
-
-    public PessoasEntity() {
+    public Person() {
 
     }
 
-    public PessoasEntity(Long id, String firstName, String lastName) {
+    public Person(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -80,7 +82,7 @@ public class PessoasEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "PessoasEntity{" +
+        return "Person{" +
                 "id=" + id +
                 ", name='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
