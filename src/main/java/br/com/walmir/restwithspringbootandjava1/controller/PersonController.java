@@ -1,6 +1,7 @@
 package br.com.walmir.restwithspringbootandjava1.controller;
 
 import br.com.walmir.restwithspringbootandjava1.data.vo.v1.PersonVO;
+import br.com.walmir.restwithspringbootandjava1.data.vo.v2.PersonVOV2;
 import br.com.walmir.restwithspringbootandjava1.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("api/person/v1")
 public class PersonController {
 
     @Autowired
@@ -21,6 +22,11 @@ public class PersonController {
     public ResponseEntity<PersonVO> save(@RequestBody PersonVO PersonVO){
       personService.save(PersonVO);
       return new ResponseEntity<>(  personService.save(PersonVO), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value ="/v2")
+    public ResponseEntity<PersonVOV2> saveV2(@RequestBody PersonVOV2 PersonVOV2){
+      return new ResponseEntity<>(  personService.saveV2(PersonVOV2), HttpStatus.CREATED);
     }
 
     @GetMapping( "/{id}")

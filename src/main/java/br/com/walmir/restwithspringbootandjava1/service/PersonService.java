@@ -1,8 +1,10 @@
 package br.com.walmir.restwithspringbootandjava1.service;
 
+import br.com.walmir.restwithspringbootandjava1.data.vo.v2.PersonVOV2;
 import br.com.walmir.restwithspringbootandjava1.exceptions.ResourceNotFoundException;
 import br.com.walmir.restwithspringbootandjava1.data.vo.v1.PersonVO;
 import br.com.walmir.restwithspringbootandjava1.mapper.DozerMapper;
+import br.com.walmir.restwithspringbootandjava1.mapper.custom.PersonMapper;
 import br.com.walmir.restwithspringbootandjava1.model.Person;
 import br.com.walmir.restwithspringbootandjava1.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,22 @@ public class PersonService {
     private PersonRepository personRepository;
 
 
+    @Autowired
+    private PersonMapper mapper;
+
+
+
     public PersonVO save(PersonVO personVO) {
         var entity = DozerMapper.parseObject(personVO, Person.class);
         personRepository.save(entity);
         return DozerMapper.parseObject(entity, PersonVO.class);
+    }
+
+
+    public PersonVOV2 saveV2(PersonVOV2 personVOV2) {
+        var entity = mapper.convertVoToPerson(personVOV2);
+        personRepository.save(entity);
+        return mapper.convertEntityToVO(entity);
     }
 
     public List<PersonVO> findAll() {
